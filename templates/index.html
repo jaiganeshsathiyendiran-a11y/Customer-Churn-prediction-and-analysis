@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Churn Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="glass-card">
+    <h1>📉 Customer Churn Predictor</h1>
+    <p class="sub">AI-powered churn analysis (Demo)</p>
+
+    <form action="/predict" method="post">
+        <input type="number" name="tenure" placeholder="Tenure (months)" required>
+        <input type="number" name="monthly" placeholder="Monthly Charges" required>
+        <input type="number" name="total" placeholder="Total Charges" required>
+        <button>🚀 Predict</button>
+    </form>
+</div>
+
+</body>
+</html>

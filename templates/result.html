@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% set p = prediction if prediction is defined else 'No Churn' %}
+{% set prob = prob if prob is defined else 0 %}
+
+<div class="result-card {{ 'danger' if p == 'Churn' else 'safe' }}">
+
+    <h1>
+        {% if p == 'Churn' %}
+            Customer Likely to Churn
+        {% else %}
+            Customer Will Stay
+        {% endif %}
+    </h1>
+
+    <!-- Main Emoji -->
+    <div class="emoji-main {{ 'shake' if p == 'Churn' else 'bounce' }}">
+        {% if p == 'Churn' %}
+            😟🔥
+        {% else %}
+            😊✨
+        {% endif %}
+    </div>
+
+    <!-- Probability -->
+    <p class="prob-text">
+        Probability: <strong>{{ prob }}%</strong>
+    </p>
+
+    <!-- Progress Bar -->
+    <div class="progress">
+        <div class="bar" data-prob="{{ prob }}"></div>
+    </div>
+
+    <!-- Under Emoji -->
+    <div class="emoji-under {{ 'pulse' if p == 'Churn' else 'float' }}">
+        {% if p == 'Churn' %}
+            ⚠️⚠️
+        {% else %}
+            🎉🎊
+        {% endif %}
+    </div>
+
+    <a href="/">🔄 Predict Again</a>
+</div>
+
+<script>
+    const bar = document.querySelector(".bar");
+    const prob = bar.getAttribute("data-prob");
+    bar.style.width = prob + "%";
+</script>
+
+{% if p != 'Churn' %}
+<script src="{{ url_for('static', filename='confetti.js') }}"></script>
+{% endif %}
+
+</body>
+</html>
